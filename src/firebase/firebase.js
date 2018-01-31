@@ -21,6 +21,10 @@ database.ref().set({
         country: 'USA',
         hometomwn: 'milwaukee'
     }
+}).then(() => {
+    console.log('data is saved');
+}).catch((e) => {
+    console.log('error message is: ', e);
 });
 
 database.ref('age').set(31);
@@ -28,9 +32,11 @@ database.ref('location/city').set('denver');
 
 //attributes challenge: store their eye color and hair color
 
-// database.ref('attributes/eye-color').set('blue');
-// database.ref('attributes/hair-color').set('brown');
 database.ref('attributes').set({
     eye_color: 'blue',
     hair_color: 'brown'
+}).then(() => {
+    console.log('changed attributes successfully');
+}).catch((e) => {
+    console.log('error here: ', e);
 });
