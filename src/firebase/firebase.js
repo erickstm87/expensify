@@ -10,8 +10,27 @@ const config = {
 };
 
 firebase.initializeApp(config);
+const database = firebase.database();
 
-firebase.database().ref().set({
-    name: 'tomas'
+database.ref().set({
+    name: 'tomas',
+    age: 30,
+    isSingle: false,
+    location: {
+        city: 'boulder',
+        country: 'USA',
+        hometomwn: 'milwaukee'
+    }
 });
-  
+
+database.ref('age').set(31);
+database.ref('location/city').set('denver');
+
+//attributes challenge: store their eye color and hair color
+
+// database.ref('attributes/eye-color').set('blue');
+// database.ref('attributes/hair-color').set('brown');
+database.ref('attributes').set({
+    eye_color: 'blue',
+    hair_color: 'brown'
+});
