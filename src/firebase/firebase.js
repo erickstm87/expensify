@@ -12,31 +12,61 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
-database.ref().set({
-    name: 'tomas',
-    age: 30,
-    isSingle: false,
-    location: {
-        city: 'boulder',
-        country: 'USA',
-        hometomwn: 'milwaukee'
-    }
-}).then(() => {
-    console.log('data is saved');
-}).catch((e) => {
-    console.log('error message is: ', e);
+database.ref().on('value', (snapshot) => {
+    console.log(snapshot.val());
 });
 
-database.ref('age').set(31);
-database.ref('location/city').set('denver');
+database.ref().on('value', (snapshot) => {
+    const val = snapshot.val();
+    console.log(`${val.name} is a ${val.job} and is this many years old, ${val.age}`);
+}, (e) => {
+    console.log('error: ', e)
+})
+
+// database.ref().once('value')
+//         .then((snapshot) => {
+//             const val = snapshot.val();
+//             console.log(val);
+//         })
+//         .catch((e) => {
+//             console.log('error: ', e);
+//         })
+
+// database.ref().set({
+//     name: 'tomas',
+//     age: 30,
+//     isSingle: false,
+//     location: {
+//         city: 'boulder',
+//         country: 'USA',
+//         hometown: 'milwaukee'
+//     }
+// }).then(() => {
+//     console.log('data is saved');
+// }).catch((e) => {
+//     console.log('error message is: ', e);
+// });
+
+// database.ref('age').set(31);
+// database.ref('location/city').set('denver');
 
 //attributes challenge: store their eye color and hair color
 
-database.ref('attributes').set({
-    eye_color: 'blue',
-    hair_color: 'brown'
-}).then(() => {
-    console.log('changed attributes successfully');
-}).catch((e) => {
-    console.log('error here: ', e);
-});
+// database.ref('attributes').set({
+//     eye_color: 'blue',
+//     hair_color: 'brown'
+// }).then(() => {
+//     console.log('changed attributes successfully');
+// }).catch((e) => {
+//     console.log('error here: ', e);
+// });
+
+// database.ref('isSingle').remove();
+// // database.ref('isSingle').set(null); <-- This is an alternative way to remove data
+// database.ref().update({
+//     name: 'Felipe',
+//     age: 45,
+//     'location/country': 'world',
+//     'job': 'software man'
+
+// });
