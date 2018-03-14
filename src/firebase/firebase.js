@@ -12,16 +12,33 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
-database.ref().on('value', (snapshot) => {
-    console.log(snapshot.val());
-});
+const dataB = database.ref('expenses')
+    .once('value')
+    .then((snapshot) => {
+        console.log(snapshot.val());
+    })
+    .catch((e) => {
+        console.log('error was created: ', e)
+    })  
 
-database.ref().on('value', (snapshot) => {
-    const val = snapshot.val();
-    console.log(`${val.name} is a ${val.job} and is this many years old, ${val.age}`);
-}, (e) => {
-    console.log('error: ', e)
-})
+console.log('here is yo goddamn dataB: ', dataB);
+// database.ref('expenses').push({
+//     description: 'rent',
+//     note: 'movin out to the big city!',
+//     amount: 11,
+//     createdAt: '0'
+// });
+
+// database.ref().on('value', (snapshot) => {
+//     console.log(snapshot.val());
+// });
+
+// database.ref().on('value', (snapshot) => {
+//     const val = snapshot.val();
+//     console.log(`${val.name} is a ${val.job} and is this many years old, ${val.age}`);
+// }, (e) => {
+//     console.log('error: ', e)
+// })
 
 // database.ref().once('value')
 //         .then((snapshot) => {
