@@ -15,7 +15,10 @@ const database = firebase.database();
 const dataB = database.ref('expenses')
     .once('value')
     .then((snapshot) => {
-        console.log(snapshot.val());
+        let newArray = [];
+        snapshot.forEach(() => {
+            
+        });
     })
     .catch((e) => {
         console.log('error was created: ', e)
