@@ -12,19 +12,35 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
-const dataB = database.ref('expenses')
+database.ref('expenses')
     .once('value')
     .then((snapshot) => {
         let newArray = [];
-        snapshot.forEach(() => {
-            
+        snapshot.forEach((childSnapshot) => {
+            newArray.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+            console.log(newArray);
         });
     })
     .catch((e) => {
         console.log('error was created: ', e)
     })  
 
-console.log('here is yo goddamn dataB: ', dataB);
+
+database.ref('expenses').on('child_removed', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
+});
+
+database.ref('expenses').on('child_changed', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
+});
+
+database.ref('expenses').on('child_added', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
+});
+
 // database.ref('expenses').push({
 //     description: 'rent',
 //     note: 'movin out to the big city!',
@@ -42,6 +58,17 @@ console.log('here is yo goddamn dataB: ', dataB);
 // }, (e) => {
 //     console.log('error: ', e)
 // })
+
+// database.ref('expenses').on('value', (snapshot) => {
+//     let newArray = [];
+//     snapshot.forEach((childSnapshot) => {
+//         newArray.push({
+//             id: childSnapshot.key,
+//             ...childSnapshot.val()
+//         });
+//         console.log(newArray);
+//     });
+// });
 
 // database.ref().once('value')
 //         .then((snapshot) => {
