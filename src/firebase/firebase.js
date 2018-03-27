@@ -14,21 +14,21 @@ const database = firebase.database();
 
 export { firebase, database as default };
 
-// database.ref('expenses')
-//     .once('value')
-//     .then((snapshot) => {
-//         let newArray = [];
-//         snapshot.forEach((childSnapshot) => {
-//             newArray.push({
-//                 id: childSnapshot.key,
-//                 ...childSnapshot.val()
-//             });
-//             console.log(newArray);
-//         });
-//     })
-//     .catch((e) => {
-//         console.log('error was created: ', e)
-//     })  
+database.ref('expenses')
+    .once('value')
+    .then((snapshot) => {
+        let newArray = [];
+        snapshot.forEach((childSnapshot) => {
+            newArray.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+            console.log(newArray);
+        });
+    })
+    .catch((e) => {
+        console.log('error was created: ', e)
+    })  
 
 
 // database.ref('expenses').on('child_removed', (snapshot) => {
