@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/8.9.1/bin/node /Users/terickson/.yarn/bin/yarn.js run test
+  /usr/local/Cellar/node/8.9.1/bin/node /Users/terickson/.yarn/bin/yarn.js test -- -u
 
 PATH: 
   /Users/terickson/.yarn/bin:/Users/terickson/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/spotx-cli-closure/lib/closure-library/closure/bin/:/Users/terickson/repoman/repositories/spocker/bin
@@ -6224,7 +6224,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c cross-env NODE_ENV=test jest --config=jest.config.json
+  Arguments: -c cross-env NODE_ENV=test jest --config=jest.config.json -u
   Directory: /Users/terickson/expensify
   Output:
   
