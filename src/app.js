@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './routers/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
 import { setText, setTextFilter } from './actions/filters';
@@ -12,35 +12,39 @@ import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 
 const store = configureStore();
-
-// store.dispatch(addExpense({ description: 'Water bill', amount: 45000}));
-// store.dispatch(addExpense({description: 'gas bill', createdAt: 1000, amount: 50}));
-// //store.dispatch(setTextFilter('water'));
-// store.dispatch(addExpense({description: 'rent', amount: 85000, createdAt: 1200}));
-
-const state = store.getState();
-const visibleExpenses = getVisibleExpenses(state.expense, state.filters);
-
-console.log(store.getState());
-
 const jsx = (
     <Provider store={store}>
         <AppRouter />
     </Provider>
 );
 
+const state = store.getState();
+const visibleExpenses = getVisibleExpenses(state.expense, state.filters);
+let hasRendered = false;
+const renderApp = () => {
+    if(!hasRendered){
+        ReactDOM.render(jsx, document.getElementById('app'));
+        hasRendered = true;
+    }
+};
+
+//console.log(store.getState());
+
 ReactDOM.render(<p>Loading . . .</p>, document.getElementById('app')); 
 
-store.dispatch(startSetExpenses()).then(() => {
-    ReactDOM.render(jsx, document.getElementById('app'));     
-});
 
 firebase.auth().onAuthStateChanged((user) => {
     if(user){
-        console.log('log in');
+        store.dispatch(startSetExpenses()).then(() => {
+            renderApp();     
+            if(history.location.pathname === '/'){
+                history.push('/dashboard');
+            }
+        });
     }
     else
     {
-        console.log('log out');
+        renderApp();
+        history.push('/');
     }
 });
