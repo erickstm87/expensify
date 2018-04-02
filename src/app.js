@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
-import { setText, setTextFilter } from './actions/filters';
 import { Provider } from 'react-redux';
 import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
@@ -36,7 +35,7 @@ ReactDOM.render(<p>Loading . . .</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if(user){
-        store.dispatch(login(user.id));
+        store.dispatch(login(user.uid));
         store.dispatch(startSetExpenses()).then(() => {
             renderApp();     
             if(history.location.pathname === '/'){
