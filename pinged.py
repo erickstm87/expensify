@@ -1,4 +1,4 @@
-import requests
+const http = require('http');
 
-r = requests.get('http://arcane-lowlands-96758.herokuapp.com')
-print('pinged the site')
+http.get('http://arcane-lowlands-96758.herokuapp.com');
+console.log('pinged the site');
